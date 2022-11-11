@@ -10,7 +10,7 @@ class FetchData: ObservableObject {
   @Published var moviesData = [Movie]()
 
   init() {
-    let url = "https://api.themoviedb.org/3/discover/movie?api_key=75a6dd0ad16baf57698a1da334b0e597&language=id-ID&region=id&sort_by=popularity.desc&include_adult=false"
+    let url = "https://api.themoviedb.org/3/discover/movie?api_key=75a6dd0ad16baf57698a1da334b0e597&sort_by=popularity.desc&include_adult=false"
     AF.request(url).responseJSON { [self] response in
       let result = response.data
       if result != nil {
