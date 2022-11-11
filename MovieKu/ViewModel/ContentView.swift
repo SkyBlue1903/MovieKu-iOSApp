@@ -32,7 +32,6 @@ struct ContentView: View {
       NavigationView {
         List(fetchData.moviesData) { movie in
           HStack {
-            let _ = print(movie.posterPath)
             WebImage(url: URL(string: "https://image.tmdb.org/t/p/original\(movie.posterPath!)" ?? "https://raw.githubusercontent.com/koehlersimon/fallback/master/Resources/Public/Images/placeholder.jpg"))
                     .placeholder {
 //                    Rectangle()
@@ -51,6 +50,9 @@ struct ContentView: View {
                     .frame(width: 100, height: 150)
                     .cornerRadius(15)
             VStack(alignment: .leading, spacing: 5) {
+              Text("\(movie.id)")
+              // trailer
+              Text(movie.trailers![0])
               Text(movie.name ?? "Unknown")
                       .font(.headline)
               Text(movie.releaseDate?.prefix(4) ?? "-")
@@ -74,9 +76,9 @@ struct ContentView: View {
 }
 
 
-//struct ContentView_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
 
-//  static var previews: some View {
-//    ContentView()
-//  }
-//}
+  static var previews: some View {
+    ContentView()
+  }
+}
