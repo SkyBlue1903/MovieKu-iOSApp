@@ -47,9 +47,8 @@ struct ContentView: View {
                       .frame(width: 100, height: 150)
                       .cornerRadius(15)
               VStack(alignment: .leading, spacing: 5) {
-                Text("\(movie.id)")
-                // trailer
-                Text(movie.trailers![0])
+//                Text("\(movie.id)")
+//                Text(movie.trailers![0])
                 Text(movie.name ?? "Unknown")
                         .font(.headline)
                 Text(movie.releaseDate?.prefix(4) ?? "-")

@@ -16,6 +16,10 @@ struct Movie: Codable, Identifiable {
   var genres: [String]?
   var crews: [Crew]?
   var trailers: [String]?
+  var images: [String]?
+  var imdbId: String?
+  var productions: [String]?
+  var countries: [String]?
 }
 
 

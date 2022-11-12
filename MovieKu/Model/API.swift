@@ -25,9 +25,6 @@ class FetchData: ObservableObject {
           let releaseDate = i["release_date"].stringValue
           let tagline = i["tagline"].stringValue
           let voteAverage = i["vote_average"].doubleValue
-          let genres = i["genre_ids"].arrayValue.map {
-            $0.stringValue
-          }
 
           // crews
           let urlCrew = "https://api.themoviedb.org/3/movie/\(id)/credits?api_key=75a6dd0ad16baf57698a1da334b0e597&language=id-ID"
@@ -36,6 +33,7 @@ class FetchData: ObservableObject {
             if result != nil {
               let json = JSON(result!)
               let data = json["cast"].arrayValue
+
               var crews = [Crew]()
               for i in data {
                 let crewId = i["id"].intValue
@@ -47,23 +45,55 @@ class FetchData: ObservableObject {
                 crews.append(Crew(crewId: crewId, name: name, job: job, character: character, profilePath: profilePath))
               }
 
-              //trailers
+              // trailers
               let urlTrailer = "https://api.themoviedb.org/3/movie/\(id)/videos?api_key=75a6dd0ad16baf57698a1da334b0e597"
               AF.request(urlTrailer).responseJSON { response in
                 let result = response.data
                 if result != nil {
                   let json = JSON(result!)
                   let data = json["results"].arrayValue
-//                  let _ = print("URL: \(urlTrailer)\n\nResults: \(data)\n\n\n\n")
-                  // check if site: "YouTube" and type: "Trailer"
                   let trailers = data.filter {
                     $0["site"].stringValue == "YouTube" && $0["type"].stringValue == "Trailer"
                   }
                   let trailerKeys = trailers.map {
                     $0["key"].stringValue
                   }
-                  let movie = Movie(id: id, name: name, description: description, backdropPath: backdropPath, posterPath: posterPath, releaseDate: releaseDate, tagline: tagline, voteAverage: voteAverage, genres: genres, crews: crews, trailers: trailerKeys)
-                  moviesData.append(movie)
+
+                  // images
+                  let urlImages = "https://api.themoviedb.org/3/movie/\(id)/images?api_key=75a6dd0ad16baf57698a1da334b0e597"
+                  AF.request(urlImages).responseJSON { response in
+                    let result = response.data
+                    if result != nil {
+                      let json = JSON(result!)
+                      let data = json["backdrops"].arrayValue
+                      let images = data.map {
+                        $0["file_path"].stringValue
+                      }
+
+                      let urlDetail = "https://api.themoviedb.org/3/movie/\(id)?api_key=75a6dd0ad16baf57698a1da334b0e597"
+
+                      AF.request(urlDetail).responseJSON { response in
+                        let result = response.data
+                        if result != nil {
+                          let json = JSON(result!)
+                          let data = json["genres"].arrayValue
+                          let genres = data.map {
+                            $0["name"].stringValue
+                          }
+                          let imdbId = json["imdb_id"].stringValue
+                          let productions = json["production_companies"].arrayValue.map {
+                            $0["name"].stringValue
+                          }
+                          let countries = json["production_countries"].arrayValue.map {
+                            $0["name"].stringValue
+                          }
+
+                          let movie = Movie(id: id, name: name, description: description, backdropPath: backdropPath, posterPath: posterPath, releaseDate: releaseDate, tagline: tagline, voteAverage: voteAverage, genres: genres, crews: crews, trailers: trailerKeys, images: images, imdbId: imdbId, productions: productions, countries: countries)
+                          moviesData.append(movie)
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
