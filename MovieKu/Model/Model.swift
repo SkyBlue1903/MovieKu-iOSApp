@@ -20,6 +20,7 @@ struct Movie: Codable, Identifiable {
   var imdbId: String?
   var productions: [String]?
   var countries: [String]?
+  var originalName: String?
 }
 
 

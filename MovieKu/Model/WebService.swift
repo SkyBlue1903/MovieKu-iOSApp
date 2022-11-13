@@ -1,18 +1,17 @@
 //
-// Created by Erlangga Anugrah Arifin on 10/11/22.
+// Created by Erlangga Anugrah Arifin on 13/11/22.
 //
 
-import Foundation
+import SwiftUI
 import Alamofire
 import SwiftyJSON
 
-class FetchData: ObservableObject {
-  @Published var moviesData = [Movie]()
+class SearchMovie: ObservableObject {
+  @Published var searchResults = [Movie]()
 
-  var endpoint: String = ""
 
-  init(endpoint: String) {
-    let url = "https://api.themoviedb.org/3/movie/\(endpoint)?api_key=75a6dd0ad16baf57698a1da334b0e597&sort_by=popularity.desc&include_adult=false"
+  func searchTitle(query: String) {
+    let url = "https://api.themoviedb.org/3/search/movie?api_key=1f54bd990f1cdfb230adb312546d765d&query=\(query)"
     AF.request(url).responseJSON { [self] response in
       let result = response.data
       if result != nil {
@@ -92,8 +91,8 @@ class FetchData: ObservableObject {
                           }
 
                           let movie = Movie(id: id, name: name, description: description, backdropPath: backdropPath, posterPath: posterPath, releaseDate: releaseDate, tagline: tagline, voteAverage: voteAverage, genres: genres, crews: crews, trailers: trailerKeys, images: images, imdbId: imdbId, productions: productions, countries: countries, originalName: originalName)
-                          moviesData.append(movie)
-                          print(moviesData)
+                          searchResults.append(movie)
+
                         }
 
                       }
@@ -110,6 +109,4 @@ class FetchData: ObservableObject {
       }
     }
   }
-
-
 }
