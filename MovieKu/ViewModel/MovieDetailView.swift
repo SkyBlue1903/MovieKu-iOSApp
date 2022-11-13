@@ -19,8 +19,16 @@ struct MovieDetailView: View {
     NavigationView {
       ScrollView(.vertical, showsIndicators: false) {
         VStack(alignment: .center, spacing: 20) {
-          HeaderDetailView(videoID: movie.trailers![0])
-                  .frame(width: UIScreen.main.bounds.width, height: 250)
+          if (movie.trailers!.isEmpty) {
+            WebImage(url: URL(string: "https://image.tmdb.org/t/p/original\(movie.images![0])"))
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: UIScreen.main.bounds.width, height: 250)
+          } else {
+            HeaderDetailView(videoID: movie.trailers![0])
+                    .frame(width: UIScreen.main.bounds.width, height: 250)
+          }
+
 
           VStack(alignment: .leading, spacing: 15) {
             HStack(alignment: .top) {
@@ -49,17 +57,14 @@ struct MovieDetailView: View {
               }
             }
             MovieSummaryView(movie: movie)
-            Text("Trailers")
-                    .fontWeight(.bold)
-                    .font(.system(.title2))
-            ScrollView(.horizontal, showsIndicators: true) {
-              HStack(alignment: .center, spacing: 15) {
-                ForEach(0..<movie.trailers!.count, id: \.self) { index in
-                  if (movie.trailers!.isEmpty) {
-                    ProgressView()
-                            .frame(width: 350, height: 350)
-                            .cornerRadius(10)
-                  } else {
+            let _ = print(movie.trailers!, movie.trailers?.count)
+            if movie.trailers?.count != 0 {
+              Text("Trailers")
+                      .fontWeight(.bold)
+                      .font(.system(.title2))
+              ScrollView(.horizontal, showsIndicators: true) {
+                HStack(alignment: .center, spacing: 15) {
+                  ForEach(0..<movie.trailers!.count, id: \.self) { index in
                     HeaderDetailView(videoID: movie.trailers![index])
                             .frame(width: 350, height: 175)
                             .cornerRadius(10)
@@ -67,23 +72,29 @@ struct MovieDetailView: View {
                 }
               }
             }
+
+
+
             Text("Snapshots")
                     .fontWeight(.bold)
                     .font(.system(.title2))
             ScrollView(.horizontal, showsIndicators: true) {
               HStack(alignment: .center, spacing: 15) {
                 ForEach(0..<movie.images!.count, id: \.self) { index in
-                  if (movie.images!.isEmpty) {
-                    ProgressView()
-                            .frame(width: 350, height: 350)
-                            .cornerRadius(10)
-                  } else {
                     WebImage(url: URL(string: "https://image.tmdb.org/t/p/original\(movie.images![index])"))
                             .resizable()
+                            .placeholder {
+                              VStack(spacing: 10) {
+                                ProgressView()
+                                        .frame(height: 175)
+                                        .frame(maxWidth: .infinity)
+                              }
+                            }
                             .scaledToFit()
                             .frame(height: 175)
                             .cornerRadius(15)
-                  }
+
+
                 }
               }
             }
@@ -114,7 +125,7 @@ struct MovieDetailView: View {
                                 context[.firstTextBaseline]
                               }
                               .lineLimit(1)
-                      Text("\(movie.crews![index].character! == "" ? movie.crews![index].job! : movie.crews![index].character!)")
+                      Text("\(movie.crews![index].character!)")
                               .foregroundColor(.gray)
                               .multilineTextAlignment(.center)
                               .alignmentGuide(.imageTitleAlignmentGuide) { context in
@@ -122,6 +133,7 @@ struct MovieDetailView: View {
                               }
                     }
                             .frame(width: 150)
+                            .lineLimit(1)
                             .frame(maxHeight: .infinity)
                   }
                 }

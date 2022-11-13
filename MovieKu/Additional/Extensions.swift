@@ -18,3 +18,4 @@ extension VerticalAlignment {
           ImageTitleAlignment.self
   )
 }
+

@@ -9,8 +9,10 @@ import SwiftyJSON
 class FetchData: ObservableObject {
   @Published var moviesData = [Movie]()
 
-  init() {
-    let url = "https://api.themoviedb.org/3/discover/movie?api_key=75a6dd0ad16baf57698a1da334b0e597&sort_by=popularity.desc&include_adult=false"
+  var endpoint: String = ""
+
+  init(endpoint: String) {
+    let url = "https://api.themoviedb.org/3/movie/\(endpoint)?api_key=75a6dd0ad16baf57698a1da334b0e597&sort_by=popularity.desc&include_adult=false"
     AF.request(url).responseJSON { [self] response in
       let result = response.data
       if result != nil {
@@ -90,10 +92,15 @@ class FetchData: ObservableObject {
 
                           let movie = Movie(id: id, name: name, description: description, backdropPath: backdropPath, posterPath: posterPath, releaseDate: releaseDate, tagline: tagline, voteAverage: voteAverage, genres: genres, crews: crews, trailers: trailerKeys, images: images, imdbId: imdbId, productions: productions, countries: countries)
                           moviesData.append(movie)
+                          print(moviesData)
                         }
+
                       }
+
                     }
+
                   }
+
                 }
               }
             }
@@ -102,5 +109,6 @@ class FetchData: ObservableObject {
       }
     }
   }
+
 
 }

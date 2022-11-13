@@ -17,7 +17,6 @@ struct ImdbButtonView: View {
                 Image(systemName: "globe")
                 Text("Website")
                 Spacer()
-                let _ = print(movie.imdbId)
                 Link("View movie on IMDB", destination: URL(string: "https://www.imdb.com/title/\(movie.imdbId!)")!)
                 Image(systemName: "arrow.up.right")
               }
