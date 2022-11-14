@@ -45,7 +45,7 @@ struct MovieSummaryView: View {
                       .bold()
             }
             Spacer(minLength: 60)
-              Text(movie.releaseDate!)
+              Text(movie.releaseDate! != "" ? movie.releaseDate! : "n/a")
                     .multilineTextAlignment(.trailing)
           }
                   .padding(.vertical, 5)
@@ -60,7 +60,7 @@ struct MovieSummaryView: View {
                       .bold()
             }
             Spacer(minLength: 60)
-            Text(movie.genres!.joined(separator: ", "))
+            Text(movie.genres! != [""] || movie.genres! != [] ? movie.genres!.joined(separator: ", ") : "n/a")
                     .multilineTextAlignment(.trailing)
           }
                   .padding(.vertical, 5)
@@ -74,7 +74,7 @@ struct MovieSummaryView: View {
                       .bold()
             }
             Spacer(minLength: 60)
-              Text(movie.tagline! == "" ? "-" : movie.tagline!)
+              Text(movie.tagline! != "" ? movie.tagline! : "-")
                     .multilineTextAlignment(.trailing)
           }
                   .padding(.vertical, 5)
@@ -89,7 +89,8 @@ struct MovieSummaryView: View {
                       .bold()
             }
             Spacer(minLength: 60)
-            Text(movie.countries!.joined(separator: ", "))
+
+            Text(movie.countries! != [""] ? movie.countries!.joined(separator: ", ") : "n/a")
                     .multilineTextAlignment(.trailing)
           }
                   .padding(.vertical, 5)
@@ -103,7 +104,7 @@ struct MovieSummaryView: View {
                       .bold()
             }
             Spacer(minLength: 60)
-            Text(movie.productions!.joined(separator: ", "))
+            Text(movie.productions! != [""] ? movie.productions!.joined(separator: ", ") : "n/a")
                     .multilineTextAlignment(.trailing)
           }
                   .padding(.vertical, 5)

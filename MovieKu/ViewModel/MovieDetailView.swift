@@ -17,16 +17,28 @@ struct MovieDetailView: View {
 //  var crews: Crew
   var body: some View {
     NavigationView {
+      let _ = print(movie.images)
       ScrollView(.vertical, showsIndicators: false) {
         VStack(alignment: .center, spacing: 20) {
           if (movie.trailers!.isEmpty) {
-            WebImage(url: URL(string: "https://image.tmdb.org/t/p/original\(movie.images![0])"))
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: UIScreen.main.bounds.width, height: 250)
+            if (movie.images == []) {
+              Image("image-fallback")
+                      .resizable()
+                      .scaledToFill()
+                      .frame(width: UIScreen.main.bounds.width, height: 250)
+                      .clipped()
+            } else {
+              WebImage(url: URL(string: "https://image.tmdb.org/t/p/original\(movie.images![0])"))
+                      .resizable()
+                      .scaledToFill()
+                      .frame(width: UIScreen.main.bounds.width, height: 250)
+
+            }
+
           } else {
             HeaderDetailView(videoID: movie.trailers![0])
                     .frame(width: UIScreen.main.bounds.width, height: 250)
+                    .clipped()
           }
 
 
@@ -57,7 +69,6 @@ struct MovieDetailView: View {
               }
             }
             MovieSummaryView(movie: movie)
-            let _ = print(movie.trailers!, movie.trailers?.count)
             if movie.trailers?.count != 0 {
               Text("Trailers")
                       .fontWeight(.bold)
@@ -74,13 +85,13 @@ struct MovieDetailView: View {
             }
 
 
-
-            Text("Snapshots")
-                    .fontWeight(.bold)
-                    .font(.system(.title2))
-            ScrollView(.horizontal, showsIndicators: true) {
-              HStack(alignment: .center, spacing: 15) {
-                ForEach(0..<movie.images!.count, id: \.self) { index in
+            if movie.images?.count != 0 {
+              Text("Snapshots")
+                      .fontWeight(.bold)
+                      .font(.system(.title2))
+              ScrollView(.horizontal, showsIndicators: true) {
+                HStack(alignment: .center, spacing: 15) {
+                  ForEach(0..<movie.images!.count, id: \.self) { index in
                     WebImage(url: URL(string: "https://image.tmdb.org/t/p/original\(movie.images![index])"))
                             .resizable()
                             .placeholder {
@@ -95,48 +106,50 @@ struct MovieDetailView: View {
                             .cornerRadius(15)
 
 
+                  }
                 }
               }
             }
+
             Text("Casts")
                     .fontWeight(.bold)
                     .font(.system(.title2))
             ScrollView(.horizontal, showsIndicators: true) {
-                HStack(alignment: .imageTitleAlignmentGuide, spacing: 15) {
-                  ForEach(0..<movie.crews!.count, id: \.self) { index in
-                    VStack {
-                      WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(movie.crews![index].profilePath!)"))
-                              .placeholder {
-                                VStack(spacing: 10) {
-                                  Image("image-fallback")
-                                          .resizable()
-                                          .scaledToFill()
-                                }
+              HStack(alignment: .imageTitleAlignmentGuide, spacing: 15) {
+                ForEach(0..<movie.crews!.count, id: \.self) { index in
+                  VStack {
+                    WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(movie.crews![index].profilePath!)"))
+                            .placeholder {
+                              VStack(spacing: 10) {
+                                Image("image-fallback")
+                                        .resizable()
+                                        .scaledToFill()
                               }
-                              .resizable()
-                              .transition(.fade(duration: 0.5))
-                              .scaledToFill()
-                              .frame(width: 150, height: 150)
-                              .clipShape(Circle())
-                      Text("\(movie.crews![index].name!)")
-                              .fontWeight(.bold)
-                              .multilineTextAlignment(.center)
-                              .alignmentGuide(.imageTitleAlignmentGuide) { context in
-                                context[.firstTextBaseline]
-                              }
-                              .lineLimit(1)
-                      Text("\(movie.crews![index].character!)")
-                              .foregroundColor(.gray)
-                              .multilineTextAlignment(.center)
-                              .alignmentGuide(.imageTitleAlignmentGuide) { context in
-                                context[.firstTextBaseline]
-                              }
-                    }
-                            .frame(width: 150)
+                            }
+                            .resizable()
+                            .transition(.fade(duration: 0.5))
+                            .scaledToFill()
+                            .frame(width: 150, height: 150)
+                            .clipShape(Circle())
+                    Text("\(movie.crews![index].name!)")
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+                            .alignmentGuide(.imageTitleAlignmentGuide) { context in
+                              context[.firstTextBaseline]
+                            }
                             .lineLimit(1)
-                            .frame(maxHeight: .infinity)
+                    Text("\(movie.crews![index].character!)")
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
+                            .alignmentGuide(.imageTitleAlignmentGuide) { context in
+                              context[.firstTextBaseline]
+                            }
                   }
+                          .frame(width: 150)
+                          .lineLimit(1)
+                          .frame(maxHeight: .infinity)
                 }
+              }
 
             }
             ImdbButtonView(movie: movie)

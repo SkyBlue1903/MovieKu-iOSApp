@@ -93,7 +93,6 @@ class FetchData: ObservableObject {
 
                           let movie = Movie(id: id, name: name, description: description, backdropPath: backdropPath, posterPath: posterPath, releaseDate: releaseDate, tagline: tagline, voteAverage: voteAverage, genres: genres, crews: crews, trailers: trailerKeys, images: images, imdbId: imdbId, productions: productions, countries: countries, originalName: originalName)
                           moviesData.append(movie)
-                          print(moviesData)
                         }
 
                       }

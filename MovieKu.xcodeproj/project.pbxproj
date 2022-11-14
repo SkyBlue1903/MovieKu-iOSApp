@@ -18,7 +18,6 @@
 		4832FF4C39462A14E28A1895 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4832FE88F389A9F94F46AD73 /* Preview Assets.xcassets */; };
 		4832FF92E636C9E725D9A30F /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4832F1BCDE7E95CBD654AD12 /* WebService.swift */; };
 		4832FFC0D14A83C2B842A995 /* MovieKuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4832F3113FECD1AA707F0380 /* MovieKuApp.swift */; };
-		5748FB8A291FCE7B00580156 /* ACarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 5748FB89291FCE7B00580156 /* ACarousel */; };
 		5748FB8C291FE50600580156 /* ColumnCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5748FB8B291FE50600580156 /* ColumnCarouselView.swift */; };
 		5783D834291D46B40007CCC5 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D833291D46B40007CCC5 /* MovieDetailView.swift */; };
 		578947A9291DD31C00332556 /* HeaderDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578947A8291DD31C00332556 /* HeaderDetailView.swift */; };
@@ -63,7 +62,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5748FB8A291FCE7B00580156 /* ACarousel in Frameworks */,
 				57E34DFF291D2098008C6C14 /* SwiftyJSON in Frameworks */,
 				57E34DFC291D2088008C6C14 /* SDWebImageSwiftUI in Frameworks */,
 				57E34DF9291D2064008C6C14 /* Alamofire in Frameworks */,
@@ -185,7 +183,6 @@
 				57E34DF8291D2064008C6C14 /* Alamofire */,
 				57E34DFB291D2088008C6C14 /* SDWebImageSwiftUI */,
 				57E34DFE291D2098008C6C14 /* SwiftyJSON */,
-				5748FB89291FCE7B00580156 /* ACarousel */,
 			);
 			productName = MovieKu;
 			productReference = 4832FA3746CDDB43C4757206 /* MovieKu.app */;
@@ -211,7 +208,6 @@
 				57E34DF7291D2064008C6C14 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				57E34DFA291D2088008C6C14 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				57E34DFD291D2098008C6C14 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
-				5748FB88291FCE7B00580156 /* XCRemoteSwiftPackageReference "ACarousel" */,
 			);
 			productRefGroup = 4832F0039D5FBDFF16212BE1 /* Products */;
 			projectDirPath = "";
@@ -276,8 +272,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,8 +304,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -463,14 +461,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5748FB88291FCE7B00580156 /* XCRemoteSwiftPackageReference "ACarousel" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/JWAutumn/ACarousel.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.0;
-			};
-		};
 		57E34DF7291D2064008C6C14 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -498,11 +488,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5748FB89291FCE7B00580156 /* ACarousel */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5748FB88291FCE7B00580156 /* XCRemoteSwiftPackageReference "ACarousel" */;
-			productName = ACarousel;
-		};
 		57E34DF8291D2064008C6C14 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 57E34DF7291D2064008C6C14 /* XCRemoteSwiftPackageReference "Alamofire" */;

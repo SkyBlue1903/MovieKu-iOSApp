@@ -18,25 +18,31 @@ struct MovieSearchView: View {
       List {
         if searchText.count > 0 {
           Text("Search result for: \(searchText) (\(searchMovie.searchResults.count) items)")
+                  .fontWeight(.bold)
+                  .font(.headline)
         }
         ForEach(searchMovie.searchResults) { movie in
-          VStack(alignment: .leading) {
-          Text(movie.originalName!)
-          Text(movie.releaseDate!.prefix(4))
+          NavigationLink(destination: MovieDetailView(movie: movie)) {
+            VStack(alignment: .leading) {
+              Text(movie.originalName!)
+              Text(movie.releaseDate!.prefix(4))
+            }
           }
+
         }
       }
 //              .listStyle(.plain)
               .navigationTitle("MovieKu")
               .searchable(text: $searchText, prompt: "Search movies & film")
               .onChange(of: searchText) { value in
-                async {
+                
                   if !value.isEmpty && value.count > 2 {
-                    await searchMovie.searchTitle(query: value)
+                    searchMovie.searchResults.removeAll()
+                    searchMovie.searchTitle(query: value)
                   } else {
                     searchMovie.searchResults.removeAll()
                   }
-                }
+                
               }
     }
   }

@@ -11,7 +11,8 @@ class SearchMovie: ObservableObject {
 
 
   func searchTitle(query: String) {
-    let url = "https://api.themoviedb.org/3/search/movie?api_key=1f54bd990f1cdfb230adb312546d765d&query=\(query)"
+      let urlString = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)?.lowercased()
+    let url = "https://api.themoviedb.org/3/search/movie?api_key=1f54bd990f1cdfb230adb312546d765d&query=\(urlString!)"
     AF.request(url).responseJSON { [self] response in
       let result = response.data
       if result != nil {

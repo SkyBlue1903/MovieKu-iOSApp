@@ -16,13 +16,6 @@ struct CarouselTabView: View {
 
     @State private var index = 0
     var body: some View {
-//        List(fetchNowPlaying.moviesData) { movie in
-//            NavigationLink(destination: MovieDetailView(movie: movie)) {
-//                HStack {
-//                    WebImage(url: URL(string: "https://image.tmdb.org/t/p/original\(movie.posterPath!)" ?? "https://raw.githubusercontent.com/koehlersimon/fallback/master/Resources/Public/Images/placeholder.jpg"))
-//                }
-//            }
-//        }
         VStack{
             TabView(selection: $index) {
                 ForEach(fetchNowPlaying.moviesData[0..<fetchNowPlaying.moviesData.count]) { movie in
